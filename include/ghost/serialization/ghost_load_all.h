@@ -1,0 +1,57 @@
+/*
+ * MIT No Attribution
+ *
+ * Copyright (c) 2022 Fraser Heavy Software
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
+
+#ifndef GHOST_LOAD_ALL_H_INCLUDED
+#define GHOST_LOAD_ALL_H_INCLUDED
+
+#include "ghost/ghost_core.h"
+
+#include "ghost/serialization/load/ghost_load_be_f32.h"
+#include "ghost/serialization/load/ghost_load_be_f64.h"
+#include "ghost/serialization/load/ghost_load_be.h"
+#include "ghost/serialization/load/ghost_load_be_i16.h"
+#include "ghost/serialization/load/ghost_load_be_i32.h"
+#include "ghost/serialization/load/ghost_load_be_i64.h"
+#include "ghost/serialization/load/ghost_load_be_u16.h"
+#include "ghost/serialization/load/ghost_load_be_u32.h"
+#include "ghost/serialization/load/ghost_load_be_u64.h"
+#include "ghost/serialization/load/ghost_load_he_f32.h"
+#include "ghost/serialization/load/ghost_load_he_f64.h"
+#include "ghost/serialization/load/ghost_load_he.h"
+#include "ghost/serialization/load/ghost_load_he_i16.h"
+#include "ghost/serialization/load/ghost_load_he_i32.h"
+#include "ghost/serialization/load/ghost_load_he_i64.h"
+#include "ghost/serialization/load/ghost_load_he_u16.h"
+#include "ghost/serialization/load/ghost_load_he_u32.h"
+#include "ghost/serialization/load/ghost_load_he_u64.h"
+#include "ghost/serialization/load/ghost_load_i8.h"
+#include "ghost/serialization/load/ghost_load_le_f32.h"
+#include "ghost/serialization/load/ghost_load_le_f64.h"
+#include "ghost/serialization/load/ghost_load_le.h"
+#include "ghost/serialization/load/ghost_load_le_i16.h"
+#include "ghost/serialization/load/ghost_load_le_i32.h"
+#include "ghost/serialization/load/ghost_load_le_i64.h"
+#include "ghost/serialization/load/ghost_load_le_u16.h"
+#include "ghost/serialization/load/ghost_load_le_u32.h"
+#include "ghost/serialization/load/ghost_load_le_u64.h"
+#include "ghost/serialization/load/ghost_load_u8.h"
+
+#endif

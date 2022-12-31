@@ -1,0 +1,5 @@
+/test/.build/
+/test/input/test_ghost_input
+/test/input/test_ghost_input.exe
+/test/input/test_ghost_input.obj
+/test/unit/mirror
