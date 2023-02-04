@@ -82,6 +82,8 @@ elif "emcc" in cc:
     compiler = "emscripten"
 elif "pcc" in cc:
     compiler = "pcc"
+elif "scc" in cc:
+    compiler = "scc"
 else:
     # try --version
     ret = subprocess.run([cc, "--version"], universal_newlines=True,
@@ -140,7 +142,7 @@ else:
 
 ccache = shutil.which("ccache") and not os.getenv("CCACHE_DISABLE") and os.getenv("CI") is None
 
-if compiler == "pcc":
+if compiler in ["pcc", "scc", "unknown"]:
     ccache = False
 
 
@@ -209,7 +211,13 @@ def checkFlags(flags):
     elif compiler == "dmc":
         cmd = [cc] + flags + [flagtest_src, "-ooutput" + flagtest_exe]
     else:
-        cmd = [cc, "-Wall", "-Wextra", "-Werror"] + flags + [flagtest_src, "-o", flagtest_exe]
+        # We assume the compiler supports -o and -c. We don't assume anything
+        # else, not even -Wall (since some compilers, e.g. scc, don't support
+        # them.)
+        cmd = [cc]
+        if compiler != "unknown" and compiler != "scc":
+            cmd += ["-Wall", "-Wextra", "-Werror"]
+        cmd += flags + [flagtest_src, "-o", flagtest_exe]
     #print(" ".join(cmd))
     ret = subprocess.run(cmd, universal_newlines=True,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -222,6 +230,10 @@ def checkFlags(flags):
         supported = False
     config["flags"][configArg] = supported
     return supported
+
+if not checkFlags([]):
+    print("ERROR: Compiler either doesn't work or doesn't support our default flags.")
+    sys.exit(1)
 
 def flagsIfSupported(flags):
     if checkFlags(flags):
@@ -274,7 +286,7 @@ if compiler == "MSVC":
 elif compiler == "dmc" or compiler == "kefir":
     defaultCPPFlags += []
     defaultLDFlags += []
-else:
+elif compiler != "unknown" and compiler != "scc":
     defaultCPPFlags += [
         "-Wall",
         "-g",
