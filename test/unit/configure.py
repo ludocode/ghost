@@ -116,7 +116,7 @@ if compiler == "GCC":
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if ret.returncode != 0:
         raise Exception("Failed to determine GCC version")
-    v = ret.stdout.splitlines()[0].split(" ")[-1].split(".")
+    v = ret.stdout.splitlines()[0].split(" ")[2].split(".")
     compilerVersion = int(v[0]) * 1000000 + int(v[1]) * 1000 + int(v[2])
 elif compiler == "MSVC":
     ret = subprocess.run([cc, "/?"], universal_newlines=True,
