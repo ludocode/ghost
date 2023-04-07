@@ -33,6 +33,8 @@ import sys, os
 import re
 import getopt
 
+ghostpath = os.path.dirname(sys.argv[0]) + "/.."
+
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
@@ -280,17 +282,18 @@ def parse_file(filename, user_prefix, depth, parent):
     headers = []
 
     # TODO take include path on command line, default to include
+    fullpath = filename
     if filename.startswith("ghost"):
         found = False
-        for p in "include/", "experimental/":
-            if os.path.isfile(p + filename):
-                filename = p + filename
+        for p in "include", "experimental":
+            fullpath = os.path.join(ghostpath, p, filename)
+            if os.path.isfile(fullpath):
                 found = True
                 break
         if not found:
             raise Exception("Header not found: \"" + filename + "\" included by \"" + str(parent) + "\"")
 
-    with open(filename) as infile:
+    with open(fullpath) as infile:
         matched = False
         data = pre_clean_header(infile.read(), filename, has_copyright=(depth!=0))
         for line in data.split("\n"):
