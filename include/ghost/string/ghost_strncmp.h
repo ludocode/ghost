@@ -77,7 +77,7 @@ int ghost_strncmp(const char* left, const char* right, size_t n);
     int ghost_strncmp(const char* a, const char* b, size_t n) GHOST_IMPL_DEF({
         const char* end = a + n;
         while (*a == *b && a != end) {
-            if (*a == '\0')
+            if (*a == '\000')
                 return 0;
             ++a;
             ++b;

@@ -84,7 +84,7 @@ int ghost_vsnprintf(char* restrict buffer, size_t buffer_size,
                     /* _vsnprintf() does not null-terminate on truncation. We
                     * null-terminate it ourselves. */
                     if (ghost_expect_true(ghost_impl_v_buffer_size > 0))
-                        ghost_impl_v_buffer[ghost_impl_v_buffer_size - 1] = '\0';
+                        ghost_impl_v_buffer[ghost_impl_v_buffer_size - 1] = '\000';
 
                     /* Calculate the correct length */
                     ghost_impl_v_ret = _vscprintf(ghost_impl_v_format, ghost_impl_v_args);

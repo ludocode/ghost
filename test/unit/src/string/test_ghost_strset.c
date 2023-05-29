@@ -37,8 +37,8 @@ mirror() {
     mirror_eq_s(s, "XXXXX");
 
     /* test setting empty string */
-    s[0] = '\0';
+    s[0] = '\000';
     ghost_strset(s, 'Y');
-    mirror_eq_c(s[0], '\0');
+    mirror_eq_c(s[0], '\000');
     mirror_eq_s(s + 1, "XXXX");
 }

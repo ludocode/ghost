@@ -44,7 +44,7 @@
         /* TODO use ghost_struct_hack_access() */
         element->length = ghost_impl_v_length;
         ghost_memcpy(element->cstring, ghost_impl_v_string, ghost_impl_v_length);
-        element->cstring[element->length] = '\0';
+        element->cstring[element->length] = '\000';
 
         return element;
     })

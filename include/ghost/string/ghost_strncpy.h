@@ -118,7 +118,7 @@ char* ghost_strncpy(char* restrict dest, const char* restrict src, size_t n);
     char* ghost_strncpy_impl(char* ghost_restrict to, const char* ghost_restrict from, ghost_size_t count) GHOST_IMPL_DEF({
         char* ret = to;
         char* end = to + count;
-        while (to != end && *from != '\0') {
+        while (to != end && *from != '\000') {
             *to = *from;
             ++to;
             ++from;

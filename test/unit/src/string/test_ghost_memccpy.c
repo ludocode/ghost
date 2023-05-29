@@ -38,8 +38,8 @@ mirror() {
     char dest[6] = GHOST_ZERO_INIT;
     mirror_check(dest + 3 == ghost_memccpy(dest, src, 'l', 6));
     mirror_eq_s(dest, "hel");
-    mirror_eq_c(dest[4], '\0');
-    mirror_eq_c(dest[5], '\0');
+    mirror_eq_c(dest[4], '\000');
+    mirror_eq_c(dest[5], '\000');
 
     dest[5] = 'X';
     mirror_check(ghost_null == ghost_memccpy(dest, src, 'Y', 6));

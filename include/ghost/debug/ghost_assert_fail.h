@@ -124,9 +124,9 @@ void ghost_assert_fail(
                 /* file should never be null or blank but we check anyway to
                  * make sure our crash handler doesn't crash and we print
                  * something nice. */
-                if (file == ghost_null || file[0] == '\0')
+                if (file == ghost_null || file[0] == '\000')
                     file = "(unknown file)";
-                if (function == ghost_null || function[0] == '\0')
+                if (function == ghost_null || function[0] == '\000')
                     function = "(unknown function)";
 
                 /*
@@ -175,8 +175,8 @@ void ghost_assert_fail(
                 /* We print everything in one call in case the platform doesn't
                  * have flockfile(). We lead with a newline in case a previous
                  * line wasn't ended. */
-                if (assertion != ghost_null && assertion[0] != '\0') {
-                    if (message != ghost_null && message[0] != '\0') {
+                if (assertion != ghost_null && assertion[0] != '\000') {
+                    if (message != ghost_null && message[0] != '\000') {
                         fprintf(stderr, "\nAssertion failed at %s:%d in %s:\n    %s\n    %s\n",
                                 file, line, function, assertion, message);
                     } else {
@@ -184,7 +184,7 @@ void ghost_assert_fail(
                                 file, line, function, assertion);
                     }
                 } else {
-                    if (message != ghost_null && message[0] != '\0') {
+                    if (message != ghost_null && message[0] != '\000') {
                         fprintf(stderr, "\nFatal error at %s:%d in %s:\n    %s\n",
                                 file, line, function, message);
                     } else {

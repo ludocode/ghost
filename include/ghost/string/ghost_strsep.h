@@ -125,12 +125,12 @@ char* ghost_strsep(char** restrict string, const char* restrict delimiters);
         }
 
         token = s;
-        while (*s != '\0') {
+        while (*s != '\000') {
             const char* k;
-            for (k = delimiters; *k != '\0'; ++k) {
+            for (k = delimiters; *k != '\000'; ++k) {
                 if (*s == *k) {
                     /* found a delimiter! */
-                    *s = '\0';
+                    *s = '\000';
                     *sp = s + 1;
                     return token;
                 }

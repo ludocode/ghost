@@ -47,9 +47,9 @@ char* ghost_strpbrk(const char* s, const char* accept);
     GHOST_IMPL_FUNCTION_OPEN
     ghost_impl_function
     char* ghost_strpbrk(const char* s, const char* accept) GHOST_IMPL_DEF({
-        for (; *s != '\0'; ++s) {
+        for (; *s != '\000'; ++s) {
             const char* k;
-            for (k = accept; *k != '\0'; ++k)
+            for (k = accept; *k != '\000'; ++k)
                 if (*s == *k)
                     return ghost_const_cast(char*, s);
         }

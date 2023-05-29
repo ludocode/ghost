@@ -49,7 +49,7 @@ char* ghost_strset(char* str, int c);
     char* ghost_strset(char* str, int ic) GHOST_IMPL_DEF({
         char* original_str = str;
         char c = ghost_static_cast(char, ic);
-        for (; *str != '\0'; ++str)
+        for (; *str != '\000'; ++str)
             *str = c;
         return original_str;
     })

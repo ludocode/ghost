@@ -46,7 +46,7 @@ mirror() {
     mirror_check(buf == ghost_strncpy(buf, "hi", 6));
     mirror_eq_s(buf, "hi");
     /* strncpy pads with zeroes */
-    mirror_eq_c(buf[3], '\0');
-    mirror_eq_c(buf[4], '\0');
-    mirror_eq_c(buf[5], '\0');
+    mirror_eq_c(buf[3], '\000');
+    mirror_eq_c(buf[4], '\000');
+    mirror_eq_c(buf[5], '\000');
 }

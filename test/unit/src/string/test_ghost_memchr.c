@@ -36,9 +36,9 @@ mirror() {
     mirror_check(ghost_memchr(s, 'h',  6) == s);
     mirror_check(ghost_memchr(s, 'l',  6) == s + 2);
     mirror_check(ghost_memchr(s, 'o',  6) == s + 4);
-    mirror_check(ghost_memchr(s, '\0', 6) == s + 5);
+    mirror_check(ghost_memchr(s, '\000', 6) == s + 5);
 
     mirror_check(ghost_memchr(s, 'h',  0) == ghost_null);
-    mirror_check(ghost_memchr(s, '\0', 5) == ghost_null);
+    mirror_check(ghost_memchr(s, '\000', 5) == ghost_null);
     mirror_check(ghost_memchr(s, 'X',  6) == ghost_null);
 }

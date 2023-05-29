@@ -106,15 +106,15 @@ char* ghost_strncat(char* restrict dest, const char* restrict src, size_t n);
     ghost_impl_function
     char* ghost_strncat_impl(char* ghost_restrict dest, const char* ghost_restrict src, ghost_size_t n) GHOST_IMPL_DEF({
         char* original_dest = dest;
-        while (*dest != '\0')
+        while (*dest != '\000')
             ++dest;
         char* end = src + n;
-        while (*src != '\0' && src != end) {
+        while (*src != '\000' && src != end) {
             *dest = *src;
             ++dest;
             ++src;
         }
-        *dest = '\0';
+        *dest = '\000';
         return original_dest;
     })
     GHOST_IMPL_FUNCTION_CLOSE

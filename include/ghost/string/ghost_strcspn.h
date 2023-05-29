@@ -50,7 +50,7 @@ size_t ghost_strcspn(const char* s, const char* reject);
         const char* start = s;
         while (*s) {
             const char* k;
-            for (k = reject; *k != '\0'; ++k)
+            for (k = reject; *k != '\000'; ++k)
                 if (*s == *k)
                     goto done;
             ++s;

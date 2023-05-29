@@ -50,7 +50,7 @@ size_t ghost_strspn(const char* s, const char* accept);
         const char* start = s;
         while (*s) {
             const char* k;
-            for (k = accept; *k != '\0'; ++k) {
+            for (k = accept; *k != '\000'; ++k) {
                 if (*s == *k)
                     goto cont;
             }

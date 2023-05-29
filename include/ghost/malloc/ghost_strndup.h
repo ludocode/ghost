@@ -142,7 +142,7 @@ char* ghost_strndup(const char* s, size_t max_length);
         char* p = ghost_bless(char, len + 1, ghost_malloc(len + 1));
         if (p) {
             ghost_memcpy(p, s, len);
-            p[len] = '\0';
+            p[len] = '\000';
         }
         return p;
     })

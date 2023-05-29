@@ -80,7 +80,7 @@ char* ghost_strchrnul(const char* s, int c);
     GHOST_IMPL_FUNCTION_OPEN
     ghost_impl_function
     char* ghost_strchrnul(const char* s, int c) GHOST_IMPL_DEF({
-        while (*s != '\0') {
+        while (*s != '\000') {
             if (*s == c)
                 break;
             ++s;

@@ -90,7 +90,7 @@ size_t ghost_strlcpy(char* restrict dest, const char* restrict src, size_t n);
 
             /* copy up to count-1 bytes */
             char* to_end = to + count - 1;
-            while (to != to_end && *from != '\0') {
+            while (to != to_end && *from != '\000') {
                 *to = *from;
                 ++to;
                 ++from;

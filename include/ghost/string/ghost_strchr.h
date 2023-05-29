@@ -81,7 +81,7 @@ char* ghost_strchr(const char* s, int c);
         for (;;) {
             if (*s == c)
                 return ghost_const_cast(char*, s);
-            if (*s != '\0')
+            if (*s != '\000')
                 break;
             ++s;
         }

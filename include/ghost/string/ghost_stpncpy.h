@@ -61,7 +61,7 @@ char* ghost_stpncpy(char* restrict dest, const char* restrict src, size_t n);
         char* end = dest + n;
         while (dest != end) {
             *dest = *src;
-            if (*src == '\0')
+            if (*src == '\000')
                 break;
             ++dest;
             ++src;

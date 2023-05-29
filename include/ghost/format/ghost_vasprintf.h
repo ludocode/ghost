@@ -195,7 +195,7 @@ int ghost_vasprintf(char** restrict /*out*/ str, const char* restrict format, va
             /* If it fit, allocate a copy */
             size = 1 + ghost_static_cast(size_t, ret);
             if (size <= sizeof(buffer)) {
-                ghost_assert(buffer[size - 1] == '\0', "vsnprintf() did not null-terminate");
+                ghost_assert(buffer[size - 1] == '\000', "vsnprintf() did not null-terminate");
                 *str = ghost_static_cast(char*, ghost_memdup(buffer, size));
                 if (*str == ghost_null)
                     return -1;
@@ -215,7 +215,7 @@ int ghost_vasprintf(char** restrict /*out*/ str, const char* restrict format, va
                 return ret;
             }
             ghost_assert(1 + ghost_static_cast(size_t, ret) == size, "vsnprintf() size changed");
-            ghost_assert((*str)[size - 1] == '\0', "vsnprintf() did not null-terminate");
+            ghost_assert((*str)[size - 1] == '\000', "vsnprintf() did not null-terminate");
             return ret;
         }
         #endif

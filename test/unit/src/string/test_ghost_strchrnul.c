@@ -36,6 +36,6 @@ mirror() {
     mirror_check(ghost_strchrnul(s, 'h')  == s);
     mirror_check(ghost_strchrnul(s, 'l')  == s + 2);
     mirror_check(ghost_strchrnul(s, 'o')  == s + 4);
-    mirror_check(ghost_strchrnul(s, '\0') == s + 5);
+    mirror_check(ghost_strchrnul(s, '\000') == s + 5);
     mirror_check(ghost_strchrnul(s, 'X')  == s + 5); /* not null */
 }

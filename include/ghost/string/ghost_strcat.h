@@ -97,11 +97,11 @@ char* strcat(char* restrict dest, const char* restrict src);
     ghost_impl_function
     char* strcat(char* restrict dest, const char* restrict src) GHOST_IMPL_DEF({
         char* original_dest = dest;
-        while (*dest != '\0')
+        while (*dest != '\000')
             ++dest;
         for (;;) {
             *dest = *src;
-            if (*src == '\0')
+            if (*src == '\000')
                 break;
             ++src;
             ++dest;

@@ -129,7 +129,7 @@ char* ghost_strtok_r(char* restrict string, const char* restrict delimiters,
         /* strsep() supports empty tokens; strtok_r() does not. loop to skip them. */
         do {
             ret = ghost_strsep(ghost_impl_v_state, ghost_impl_v_delims);
-        } while (ret != ghost_null && *ret == '\0');
+        } while (ret != ghost_null && *ret == '\000');
         return ret;
     })
     GHOST_IMPL_FUNCTION_CLOSE

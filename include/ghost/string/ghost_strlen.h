@@ -75,7 +75,7 @@ size_t ghost_strlen(const char* s);
     ghost_impl_function
     ghost_size_t ghost_strlen(const char* s) GHOST_IMPL_DEF({
         const char* end = s;
-        while (*end != '\0')
+        while (*end != '\000')
             ++end;
         return ghost_static_cast(ghost_size_t, end - s);
     })

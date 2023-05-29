@@ -34,10 +34,10 @@
 mirror() {
     char s[] = "hello";
     ghost_bzero(s, 6);
-    mirror_eq_c('\0', s[0]);
-    mirror_eq_c('\0', s[1]);
-    mirror_eq_c('\0', s[2]);
-    mirror_eq_c('\0', s[3]);
-    mirror_eq_c('\0', s[4]);
-    mirror_eq_c('\0', s[5]);
+    mirror_eq_c('\000', s[0]);
+    mirror_eq_c('\000', s[1]);
+    mirror_eq_c('\000', s[2]);
+    mirror_eq_c('\000', s[3]);
+    mirror_eq_c('\000', s[4]);
+    mirror_eq_c('\000', s[5]);
 }

@@ -75,7 +75,7 @@
         const char* from_start = from;
 
         /* Find the end of the destination. */
-        while (*to != '\0' && count != 0) {
+        while (*to != '\000' && count != 0) {
             ++to;
             --count;
         }

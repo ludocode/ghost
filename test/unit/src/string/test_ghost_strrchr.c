@@ -38,6 +38,6 @@ mirror() {
     mirror_check(ghost_strrchr(s, 'h')  == s);
     mirror_check(ghost_strrchr(s, 'l')  == s + 3); /* not 2 */
     mirror_check(ghost_strrchr(s, 'o')  == s + 4);
-    mirror_check(ghost_strrchr(s, '\0') == s + 5);
+    mirror_check(ghost_strrchr(s, '\000') == s + 5);
     mirror_check(ghost_strrchr(s, 'X')  == ghost_null);
 }

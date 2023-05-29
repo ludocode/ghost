@@ -104,7 +104,7 @@ char* strcpy(char* restrict to, const char* restrict from);
         char* original_dest = dest;
         for (;;) {
             *dest = *src;
-            if (*src == '\0')
+            if (*src == '\000')
                 break;
             ++dest;
             ++src;

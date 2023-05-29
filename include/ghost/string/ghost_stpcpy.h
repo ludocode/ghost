@@ -49,7 +49,7 @@ char* ghost_stpcpy(char* restrict dest, const char* restrict src);
     char* ghost_stpcpy(char* ghost_restrict dest, const char* ghost_restrict src) GHOST_IMPL_DEF({
         for (;;) {
             *dest = *src;
-            if (*src == '\0')
+            if (*src == '\000')
                 break;
             ++dest;
             ++src;

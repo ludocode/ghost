@@ -74,7 +74,7 @@ int ghost_strcmp(const char* left, const char* right);
     ghost_impl_function
     int ghost_strcmp(const char* a, const char* b) GHOST_IMPL_DEF({
         while (*a == *b) {
-            if (*a == '\0')
+            if (*a == '\000')
                 return 0;
             ++a;
             ++b;

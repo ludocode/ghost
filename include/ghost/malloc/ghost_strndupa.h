@@ -78,7 +78,7 @@ char* ghost_strndup(const char* s, size_t n);
                     ghost_size_t ghost_impl_v_len = ghost_min_z(ghost_strlen(ghost_impl_v_s), (n)); \
                     char* ghost_impl_v_p = ghost_static_cast(char*, ghost_alloca(ghost_impl_v_len) + 1); \
                     ghost_memcpy(ghost_impl_v_p, ghost_impl_v_s, ghost_impl_v_len); \
-                    ghost_impl_v_p[ghost_impl_v_len] = '\0'; \
+                    ghost_impl_v_p[ghost_impl_v_len] = '\000'; \
                     ghost_impl_v_p; \
                 })
             #define ghost_has_ghost_strndupa 1

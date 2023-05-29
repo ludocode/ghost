@@ -118,7 +118,7 @@ size_t ghost_strnlen(const char* s, size_t maxlen);
     ghost_size_t ghost_strnlen(const char* s, ghost_size_t maxlen) GHOST_IMPL_DEF({
         const char* maxend = s + maxlen;
         const char* end = s;
-        while (end != maxend && *end != '\0')
+        while (end != maxend && *end != '\000')
             ++end;
         return ghost_static_cast(ghost_size_t, end - s);
     })
