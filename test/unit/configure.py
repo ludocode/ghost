@@ -2,7 +2,7 @@
 
 # MIT No Attribution
 #
-# Copyright (c) 2022 Fraser Heavy Software
+# Copyright (c) 2022-2023 Fraser Heavy Software
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to
