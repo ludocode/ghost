@@ -48,6 +48,46 @@
     #endif
 #endif
 
+/*
+ * C++
+ *
+ * In C++ this needs to be used preferentially to any C implementation. It's
+ * not safe to do x[0] or even 0[x] in C++ due to the possibility of overloaded
+ * subscript and cast operators. See e.g.:
+ *
+ *     https://devblogs.microsoft.com/oldnewthing/20230403-00/?p=108005
+ *
+ * The only way to do it safely is with these templates that don't actually do
+ * any subscripting.
+ */
+#ifndef ghost_has_ghost_array_count
+    #ifdef __cplusplus
+        #include "ghost/type/size_t/ghost_size_t.h"
+        #include "ghost/language/ghost_cplusplus.h"
+        #if ghost_cplusplus >= 201103L
+            /* If we have C++11 we can make this nice constexpr function. */
+            template <typename ghost_impl_T, ghost_size_t ghost_impl_N>
+            static constexpr ghost_size_t ghost_impl_array_count(ghost_impl_T (&)[ghost_impl_N]) {
+                return ghost_impl_N;
+            }
+            #define ghost_array_count(x) ghost_impl_array_count(x)
+        #else
+            /* Otherwise we use this classic workaround. We declare a template
+             * function that takes T[N] and returns char[N], so sizeof() the
+             * return value of the function call is the count of our array.
+             *
+             * This has some limitations (in particular it may not work on
+             * local types because they aren't allowed to be template
+             * parameters in C++98) but it's safe even in the case of
+             * overloaded operators. */
+            template <typename ghost_impl_T, ghost_size_t ghost_impl_N>
+            char (&ghost_impl_array_count(ghost_impl_T (&ghost_impl_array)[ghost_impl_N]))[ghost_impl_N];
+            #define ghost_array_count(x) sizeof(ghost_impl_array_count(x))
+        #endif
+        #define ghost_has_ghost_array_count 1
+    #endif
+#endif
+
 /* GNU C */
 #ifndef ghost_has_ghost_array_count
     #ifdef __GNUC__
@@ -65,43 +105,15 @@
     #endif
 #endif
 
-/* C++ */
-#ifndef ghost_has_ghost_array_count
-    #ifdef __cplusplus
-        /* We need constexpr for this to work so this requires C++11. */
-        #include "ghost/language/ghost_cplusplus.h"
-        #if ghost_cplusplus >= 201103L
-            #include "ghost/type/size_t/ghost_size_t.h"
-            template <typename T, ghost_size_t N>
-            static constexpr ghost_size_t ghost_array_count_impl(T (&)[N]) {
-                return N;
-            }
-            #define ghost_array_count(x) ghost_array_count_impl(x)
-            #define ghost_has_ghost_array_count 1
-        #endif
-    #endif
-#endif
-
 /*
  * Note that we don't bother with MSVC's _countof(). In C++ it does something
- * a bit like the above and in C it doesn't try to check whether the argument
- * is a pointer.
+ * a bit like what we're already doing above and in C it doesn't try to check
+ * whether the argument is a pointer.
  *
  *     https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/countof-macro
  */
 
-/*
- * There's a neat implementation for C++98 by Ivan Johnson described here:
- *
- *     https://stackoverflow.com/a/6256085
- *
- * Unfortunately it's not clear what the license is, there is some skepticism
- * about how well it works, and C++98 is pretty dead anyway so I'm not
- * including it.
- */
-
-/* Fallback in plain C
- * TODO test this */
+/* Fallback in plain C */
 #ifndef ghost_has_ghost_array_count
     /* We use 0[x] instead of x[0] to ensure this isn't used on a C++ object
      * that overloads operator[]. We check that sizeof(x) is a multiple of

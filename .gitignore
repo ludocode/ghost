@@ -3,3 +3,5 @@
 /test/input/test_ghost_input.exe
 /test/input/test_ghost_input.obj
 /test/unit/mirror
+.ninja_deps
+.ninja_log

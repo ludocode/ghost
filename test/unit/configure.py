@@ -856,6 +856,11 @@ with open(ninja, "w") as out:
         out.write(" command = " + cc + " $in $flags -o $out\n")
     out.write("\n")
 
+    out.write("rule help\n")
+    out.write(f" command = cat {path.join(globalbuild, 'help')}\n")
+    out.write("build help: help\n")
+    out.write("\n")
+
     for buildname in sorted(builds.keys()):
         build = builds[buildname]
         buildfolder = path.join(globalbuild, buildname)

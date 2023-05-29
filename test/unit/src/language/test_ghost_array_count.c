@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022 Fraser Heavy Software
+ * Copyright (c) 2022-2023 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -26,6 +26,7 @@
 #endif
 
 #include "test_common.h"
+#include "ghost/language/ghost_cplusplus.h"
 
 #if !ghost_has_ghost_array_count
     #error "ghost_array_count must exist."
@@ -58,3 +59,33 @@ mirror() {
     mirror_eq(4, ghost_array_count(strs));
     mirror_eq(3, ghost_array_count(points));
 }
+
+#ifdef ghost_cplusplus
+struct Foo {
+    Foo() : x(4), y(5), z(6) {}
+    virtual ~Foo() {}
+    int x,y,z;
+};
+
+mirror() {
+    Foo foos[4];
+    mirror_eq(4, ghost_array_count(foos));
+}
+#endif
+
+/* ghost_array_count() doesn't work on local types in C++98. It does work in
+ * all standard versions of C and in C++11 or newer. */
+#ifdef ghost_cplusplus
+    #if ghost_cplusplus >= 201103L
+        #define GHOST_IMPL_TEST_LOCAL_TYPES
+    #endif
+#else
+    #define GHOST_IMPL_TEST_LOCAL_TYPES
+#endif
+#ifdef GHOST_IMPL_TEST_LOCAL_TYPES
+mirror() {
+    struct {int x;} array_of_anonymous_type[3];
+    mirror_eq(3, ghost_array_count(array_of_anonymous_type));
+}
+#endif
+#undef GHOST_IMPL_TEST_LOCAL_TYPES
