@@ -27,6 +27,7 @@
 
 #include "test_common.h"
 #include "ghost/type/bool/ghost_bool.h"
+#include "ghost/type/bool/ghost_true.h"
 
 #if GHOST_PP_VA_ARGS
 ghost_static_assert(ghost_true);   /* no message */
