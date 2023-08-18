@@ -169,7 +169,7 @@ int ghost_vsnprintf(char* restrict buffer, size_t buffer_size,
                     ghost_size_t ghost_impl_v_buffer_size,
                     const char* ghost_restrict ghost_impl_v_format,
                     va_list ghost_impl_v_args)
-                ghost_impl_libc_noexcept(ghost_impl_libc_asm("snprintf"));
+                ghost_impl_libc_noexcept(ghost_impl_libc_asm("vsnprintf"));
         #else
             #include "ghost/impl/ghost_impl_always_inline.h"
             #include "ghost/preprocessor/ghost_nothing.h"
@@ -182,7 +182,7 @@ int ghost_vsnprintf(char* restrict buffer, size_t buffer_size,
                     va_list ghost_impl_v_args)
             {
                 ghost_dllimport
-                extern void vsnprintf(
+                extern int vsnprintf(
                         char* ghost_restrict ghost_impl_v_buffer,
                         ghost_size_t ghost_impl_v_buffer_size,
                         const char* ghost_restrict ghost_impl_v_format,

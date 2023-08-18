@@ -179,6 +179,7 @@
  * platforms use long instead of int when they are the same size which also
  * gives warnings... */
 #if !defined(GHOST_IMPL_FORMAT_Z_PRINT_MODIFIER) || !defined(GHOST_IMPL_FORMAT_Z_SCAN_MODIFIER)
+    #include "ghost/type/size_t/ghost_size_width.h"
     #ifdef GHOST_SIZE_WIDTH
 
         /* Note that we don't check for "hh" and "ll" support because they are
