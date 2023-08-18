@@ -128,9 +128,6 @@
      *
      * The map is implemented as a simple growable array. Deleted entries are
      * stored in a linked list.
-     *
-     * TODO use a container template. This should probably use a hashtable once
-     * we implement one.
      */
 
     typedef struct {

@@ -42,10 +42,10 @@
  * If you want to use implicit void pointer casts in both C and C++ you should
  * probably not enable this warning.
  *
- * The main purpose of this is to wrap functions like ghost_malloc() or
- * ghost_vvec_at() to make them usable in C++ without casts. These functions
- * return void* but, unlike normal malloc(), you don't need to cast the return
- * value of these expressions in C++ because they wrap their return values in
+ * The main purpose of this is to wrap functions like ghost_malloc() to make
+ * them usable in C++ without casts. These functions return void* but, unlike
+ * normal malloc(), you don't need to cast the return value of these
+ * expressions in C++ because they wrap their return values in
  * ghost_auto_cast().
  *
  * Example:

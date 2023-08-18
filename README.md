@@ -1,10 +1,10 @@
 ## Ghost
 
-Ghost is a header-only portability and boilerplate library for C. It's a bit like a "Boost for C".
+Ghost is a header-only portability library for C. It's a bit like a "Boost for C".
 
 ## Introduction
 
-Ghost is useful for making extremely portable configure-free programs and libraries in C. Ghost wraps the ugly differences between language standards, compilers, operating systems and CPU architectures so you don't have to. It brings platform-specific extensions to all platforms wherever possible, and provides common features like math, serialization, and simple containers that are generally useful in any software project.
+Ghost is useful for making extremely portable configure-free programs and libraries in C. Ghost wraps the ugly differences between language standards, compilers, operating systems and CPU architectures, and brings platform-specific extensions to all platforms wherever possible.
 
 What behaviour do you need for `realloc(p, 0)`? Ghost has all the variations. Do you want your threads to return `int` or `void*`? Ghost has both. What prototype do you want for `qsort_r()`? Ghost implements them all. Use whichever you like on any platform.
 
@@ -153,7 +153,7 @@ ghost_gnu_qsort_r(values, count, sizeof(values[0]), my_compare, my_context);
 #define qsort_r ghost_gnu_qsort_r
 ```
 
-Ghost provides some useful boilerplate that isn't platform specific, like simple math functions and common algorithms.
+Ghost provides simple math functions and common algorithms.
 
 ```c
 #include "ghost/algorithm/ghost_fnv1a.h"
@@ -164,30 +164,6 @@ uint32_t hash = ghost_fnv1a_cstr_u32("Hello world!"); // 0x7a78f512U
 // ghost_is_pow2_*() returns true if the argument is a power of two.
 bool x = ghost_is_pow2_i(37); // false
 bool y = ghost_is_pow2_u(64U); // true
-```
-
-It also has simple containers of common types, wrapping type-erased implementations to minimize code bloat.
-
-```c
-#include "ghost/container/common/ghost_sset.h"
-
-// An ordered set of strings.
-ghost_sset_t names;
-ghost_sset_init(&names);
-
-ghost_sset_insert(&names, "Carol");
-ghost_sset_insert(&names, "Bob");
-ghost_sset_insert(&names, "Dave");
-ghost_sset_insert(&names, "Alice");
-
-for (ghost_sset_it_t it = ghost_sset_first(&names);
-        it;
-        it = ghost_sset_next(&names, it))
-{
-    printf("Hello %s\n", ghost_sset_it_string(it));
-}
-
-ghost_sset_destroy(&names);
 ```
 
 Ghost can help you detect implementation details that are tricky to detect.
@@ -260,11 +236,6 @@ echo '#include "ghost/detect/ghost_musl_version.h"' | \
     tools/amalgamate.py -i- -o bar_musl.h -p bar
 # We've generated bar_musl.h, a standalone dependency-free header whose sole
 # purpose is to detect the version of musl.
-
-echo '#include "ghost/container/template/ghost_tmap_all.h"' | \
-    tools/amalgamate.py -i- -o baz_map.h -p baz
-# We've generated baz_map.h, a single-header zero-dependency library that
-# implements a weight-balanced binary tree map template.
 ```
 
 Explore the [documentation](docs/) and [`include/` tree](include/ghost/) to find out more.
