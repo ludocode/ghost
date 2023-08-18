@@ -246,6 +246,19 @@
     #endif
 #endif
 
+/* musl 1.2.4 added TCP fallback for DNS lookups and some ELF relocation
+ * compression stuff. */
+#if !defined(ghost_has_GHOST_MUSL_VERSION) && defined(GHOST_IMPL_MUSL_1_2_X)
+    #include <arpa/nameser.h>
+    #include <netdb.h>
+    #include <elf.h>
+    #if defined(EAI_NODATA) && defined(T_DNSKEY) && defined(T_TLSA) && \
+            defined(SHT_RELR) && defined(DT_RELR) && defined(ELFCOMPRESS_ZSTD)
+        #define GHOST_MUSL_VERSION 1002004
+        #define ghost_has_GHOST_MUSL_VERSION 1
+    #endif
+#endif
+
 /* musl 1.2.3 added qsort_r(), but they won't tell us they have it, which is
  * what prompted this whole ordeal in the first place. */
 #if !defined(ghost_has_GHOST_MUSL_VERSION) && defined(GHOST_IMPL_MUSL_1_2_X)
