@@ -85,7 +85,7 @@ void ghost_memmove(const void* dest, void* src, size_t n);
             dest += count;
             src += count;
             while (dest != end)
-                *dest-- = *src--;
+                *--dest = *--src;
         }
         return start;
     })
