@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022 Fraser Heavy Software
+ * Copyright (c) 2022-2025 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -81,14 +81,14 @@ char* ghost_strtok(char* restrict string, const char* restrict delimiters);
         #elif !GHOST_EMIT_DEFS
             extern
         #endif
-        char** ghost_impl_strtok_state;
+        char* ghost_impl_strtok_state;
 
         #include "ghost/language/ghost_restrict.h"
         #include "ghost/string/ghost_strtok_r.h"
         #include "ghost/language/ghost_null.h"
         ghost_impl_always_inline
         char* ghost_strtok(char* ghost_restrict string, const char* ghost_restrict delimiters) {
-            return ghost_strtok_r(string, delimiters, ghost_impl_strtok_state);
+            return ghost_strtok_r(string, delimiters, &ghost_impl_strtok_state);
         }
 
         GHOST_IMPL_FUNCTION_CLOSE

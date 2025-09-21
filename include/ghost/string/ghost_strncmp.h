@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022-2023 Fraser Heavy Software
+ * Copyright (c) 2022-2025 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -76,8 +76,12 @@ int ghost_strncmp(const char* left, const char* right, size_t n);
     ghost_impl_function
     int ghost_strncmp(const char* a, const char* b, size_t n) GHOST_IMPL_DEF({
         const char* end = a + n;
-        while (*a == *b && a != end) {
-            if (*a == '\000')
+        for (;;) {
+            if (a == end)
+                return 0;
+            if (*a != *b)
+                break;
+            if (*a == 0)
                 return 0;
             ++a;
             ++b;

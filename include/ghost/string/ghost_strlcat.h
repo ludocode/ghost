@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022-2023 Fraser Heavy Software
+ * Copyright (c) 2022-2025 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -28,6 +28,7 @@
 /**
  * Defines ghost_strlcat() to BSD strlcat() or an equivalent.
  */
+size_t ghost_strlcat(char* restrict to, const char* restrict from, size_t count);
 #endif
 
 #ifndef ghost_has_ghost_strlcat

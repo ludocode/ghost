@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022-2023 Fraser Heavy Software
+ * Copyright (c) 2022-2025 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -81,7 +81,7 @@ char* ghost_strchr(const char* s, int c);
         for (;;) {
             if (*s == c)
                 return ghost_const_cast(char*, s);
-            if (*s != '\000')
+            if (*s == '\000')
                 break;
             ++s;
         }
