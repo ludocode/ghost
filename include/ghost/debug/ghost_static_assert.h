@@ -69,8 +69,6 @@
  *
  * @see ghost_assert
  * @see ghost_static_assert_expr
- *
- * TODO move to ghost/debug
  */
 #endif
 

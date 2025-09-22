@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022 Fraser Heavy Software
+ * Copyright (c) 2022-2024 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,8 +23,6 @@
 #define GHOST_OMIT_VA_ARGS_H_INCLUDED
 
 #include "ghost/ghost_core.h"
-
-/* TODO fix name, make it match ghost_pp_va_args somehow (make them both the same) */
 
 /**
  * @def GHOST_OMIT_VA_ARGS

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script is run by the continuous integration server to build and run the
-# Pottery unit test suite on UNIX systems.
+# unit test suite on UNIX systems.
 
 set -e
 cd "$(dirname $0)/../.."
