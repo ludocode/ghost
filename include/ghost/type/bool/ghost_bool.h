@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022 Fraser Heavy Software
+ * Copyright (c) 2022-2025 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -24,6 +24,8 @@
 
 #include "ghost/ghost_core.h"
 
+
+
 #if GHOST_DOCUMENTATION
 /**
  * A boolean type.
@@ -31,18 +33,11 @@
  * If a bool exists as part of the language or it can be provided as a compiler
  * extension, ghost_bool will be an alias of it. Otherwise it will be `unsigned
  * char`.
- *
- * We fallback to `unsigned char` so that `sizeof(ghost_bool)==1`. On virtually
- * all modern platforms, `sizeof(bool)==1` so we match that behaviour.
  */
 typedef _Bool ghost_bool;
 #endif
 
-/* We include <stdbool.h> if possible to provide the real bool, true and false
- * so that you don't have to use ghost's prefixed names. We include it even in
- * C++ so that __bool_true_false_are_defined is defined, that way the user can
- * check it if they need bool. */
-#include "ghost/header/c/ghost_stdbool_h.h"
+
 
 /* In C++ bool is a keyword. */
 #if defined(__cplusplus)
@@ -53,8 +48,9 @@ typedef _Bool ghost_bool;
 #endif
 
 /* We don't use bool in C23 because it is a predefined macro. It could
- * technically be defined by old user code to something else (e.g. int or
- * char; either way we don't want to use it.) */
+ * technically be re-defined by old user code to something else (e.g. int or
+ * char; either way we don't want to use it.) _Bool is still supported in C23
+ * so we use that. */
 
 /* In C99 we have _Bool. */
 #ifndef ghost_has_ghost_bool
@@ -78,7 +74,7 @@ typedef _Bool ghost_bool;
  * both __extension__ and _Bool unless we know otherwise.
  */
 #ifndef ghost_has_ghost_bool
-    /* cparser doesn't support this. */
+    /* cparser defines __GNUC__ but doesn't support this. */
     #if defined(__GNUC__) && !defined(__CPARSER__)
         __extension__ typedef _Bool ghost_bool;
         #define ghost_has_ghost_bool 1
@@ -107,8 +103,35 @@ typedef _Bool ghost_bool;
  * Ghost. We do want to eventually support everything with Ghost though so this
  * will eventually need to be fixed.)
  *
- * There is an issue here which is that old versions of GCC may throw warnings
- * after performing integer promotions on ternary branches. For example:
+ *
+ * The biggest issue with using `unsigned char` is that implicit conversions
+ * from larger integer types will truncate instead of converting to bool. For
+ * example:
+ *
+ *     int x = 0x100;
+ *     ghost_bool b = x;
+ *
+ * If `ghost_bool` is `unsigned char`, `b` will be 0 instead of 1. This can be
+ * dangerous. You should enable truncation warnings (e.g. -Wconversion) to
+ * prevent such bugs. To support compilers that don't have a bool type, correct
+ * code would be a double negation:
+ *
+ *     int x = 0x100;
+ *     ghost_bool b = !!x;
+ *
+ * If you'd like to use `int` instead, you can always pre-define it to
+ * something else, e.g. `-Dghost_bool=int` or `#define ghost_bool int`. This
+ * could make the ABI incompatible with C99 code that uses bools though, and it
+ * doesn't entirely solve this problem because `int` will also truncate from
+ * `long` or `long long` if those types are larger.
+ *
+ * This can't really be prevented in ANSI C code. It's recommended to compile
+ * as at least C99, use a compiler with a bool extension in C89, or at least
+ * enable truncation warnings.
+ *
+ *
+ * Another issue is that old versions of GCC may throw warnings after
+ * performing integer promotions on ternary branches. For example:
  *
  * ghost_bool x = some_condition ? ghost_true : ghost_false;
  *
