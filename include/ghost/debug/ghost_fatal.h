@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022 Fraser Heavy Software
+ * Copyright (c) 2022-2025 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -49,18 +49,8 @@
 #ifndef ghost_has_ghost_fatal
     #include "ghost/debug/ghost_assert_fail.h"
     #if ghost_has(ghost_assert_fail)
-        #include "ghost/debug/ghost_pretty_function.h"
+        #include "ghost/debug/ghost_pretty_function_opt.h"
         #include "ghost/preprocessor/ghost_pp_va_args.h"
-
-        #ifdef GHOST_IMPL_FATAL_PRETTY_FUNCTION
-            #error "Cannot pre-define GHOST_IMPL_FATAL_PRETTY_FUNCTION."
-        #endif
-        #if ghost_has(GHOST_PRETTY_FUNCTION)
-            #define GHOST_IMPL_FATAL_PRETTY_FUNCTION GHOST_PRETTY_FUNCTION
-        #else
-            #include "ghost/language/ghost_null.h"
-            #define GHOST_IMPL_FATAL_PRETTY_FUNCTION ghost_null
-        #endif
 
         #if GHOST_PP_VA_ARGS
             #include "ghost/language/ghost_null.h"
@@ -68,11 +58,12 @@
              * that the message is a string literal and allows it to be omitted. */
             #define ghost_fatal(...) ghost_fatal_impl(__VA_ARGS__, "", 0)
             #define ghost_fatal_impl(msg, ...) \
-                ghost_assert_fail(ghost_null, "" msg, __FILE__, __LINE__, GHOST_IMPL_FATAL_PRETTY_FUNCTION)
+                ghost_assert_fail(ghost_null, "" msg, __FILE__, __LINE__, GHOST_PRETTY_FUNCTION_OPT)
         #else
-            /* Without variadic macros the message is not optional. */
+            /* Without variadic macros the message is not optional. We still
+             * make sure it's a string literal. */
             #define ghost_fatal(msg) \
-                ghost_assert_fail(ghost_null, "" msg, __FILE__, __LINE__, GHOST_IMPL_FATAL_PRETTY_FUNCTION)
+                ghost_assert_fail(ghost_null, "" msg, __FILE__, __LINE__, GHOST_PRETTY_FUNCTION_OPT)
         #endif
 
         #define ghost_has_ghost_fatal 1
