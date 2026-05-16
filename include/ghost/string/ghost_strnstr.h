@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022 Fraser Heavy Software
+ * Copyright (c) 2022-2026 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -40,15 +40,22 @@ char* ghost_strnstr(const char* haystack, const char* needle, size_t n);
 #endif
 
 /*
- * FreeBSD, NetBSD and DragonFlyBSD have strnstr() in <string.h>. OpenBSD
- * apparently does not.
+ * FreeBSD, NetBSD, DragonFlyBSD have long had strnstr() in <string.h>.
+ *
+ * macOS (as of 10.9) and OpenBSD (as of an unknown version) also have it.
+ * TODO we should check the libc version to see whether it exists. (It is not
+ * straightforward to check the version of the macOS libc with the
+ * preprocessor.)
  *
  *     https://www.freebsd.org/cgi/man.cgi?query=strnstr
  *     https://man.netbsd.org/strnstr.3
  *     https://man.dragonflybsd.org/?command=strnstr&section=ANY
+ *     https://developer.apple.com/documentation/kernel/1579346-strnstr
+ *     https://man.openbsd.org/strnstr.9
  */
 #ifndef ghost_has_ghost_strnstr
-    #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__)
+    #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) \
+            || defined(__OpenBSD__) || defined(__APPLE__)
         #include "ghost/header/c/ghost_string_h.h"
         #define ghost_strnstr strnstr
         #define ghost_has_ghost_strnstr 1
@@ -69,18 +76,19 @@ char* ghost_strnstr(const char* haystack, const char* needle, size_t n);
  * For now we don't bother to write a fast search algorithm that can handle
  * null-terminated strings; see ghost_strstr(). */
 #ifndef ghost_has_ghost_strnstr
-    #include "ghost/language/ghost_restrict.h"
     #include "ghost/impl/ghost_impl_function.h"
-    #include "ghost/string/ghost_memmem.h"
-    #include "ghost/string/ghost_strlen.h"
+    #include "ghost/language/ghost_restrict.h"
     #include "ghost/language/ghost_static_cast.h"
     #include "ghost/math/max/ghost_max_z.h"
+    #include "ghost/string/ghost_memmem.h"
+    #include "ghost/string/ghost_strlen.h"
+    #include "ghost/string/ghost_strnlen.h"
     #include "ghost/type/size_t/ghost_size_t.h"
     GHOST_IMPL_FUNCTION_OPEN
     ghost_impl_function
     char* ghost_strnstr(const char* haystack, const char* needle, ghost_size_t n) GHOST_IMPL_DEF({
         return ghost_static_cast(char*,
-                ghost_memmem(haystack, ghost_max_z(n, ghost_strlen(haystack)),
+                ghost_memmem(haystack, ghost_strnlen(haystack, n),
                     needle, ghost_strlen(needle)));
     })
     GHOST_IMPL_FUNCTION_CLOSE
