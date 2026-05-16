@@ -1,7 +1,7 @@
 /*
  * MIT No Attribution
  *
- * Copyright (c) 2022 Fraser Heavy Software
+ * Copyright (c) 2022-2026 Fraser Heavy Software
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -49,7 +49,7 @@
 #endif
 
 /* If this is a UNIX-like system, assume it exists. */
-#ifndef ghost_has_ghost_pthread_h
+#ifndef ghost_has_ghost_sys_mman_h
     #include "ghost/detect/ghost_unix.h"
     #if GHOST_UNIX
         #include <sys/mman.h>
